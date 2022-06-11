@@ -7,5 +7,7 @@ I have implemented functions for the programmable exciting current sources (IDAC
 If you like the library, it would be great if you could give a star. If you find bugs, please inform me.
 
 In some weeks I will publish a tutorial on my website:
+
 https://wolles-elektronikkiste.de/        (German) 
+
 https://wolles-elektronikkiste.de/en/     (English)
