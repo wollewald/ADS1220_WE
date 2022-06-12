@@ -2,7 +2,7 @@
  *
  * This is a library for the 24 bit, 4 channel ADS1220 A/D Converter
  *
- * You'll find several example sketches which should enable you to use the library.
+ * I added several examples sketches which should enable you to use the library.
  *
  * You are free to use it, change it or build on it. In case you like it, it would
  * be cool if you give it a star.

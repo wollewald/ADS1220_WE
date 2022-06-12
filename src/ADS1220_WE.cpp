@@ -1,7 +1,7 @@
 /*****************************************
 * This is a library for the 24 bit, 4 channel ADS1220 A/D Converter
 *
-* You'll find an example which should enable you to use the library. 
+* I added example sketches which should enable you to use the library. 
 *
 * You are free to use it, change it or build on it. In case you like 
 * it, it would be cool if you give it a star.
@@ -275,12 +275,12 @@ int32_t ADS1220_WE::getRawData(){
 float ADS1220_WE::getTemperature(){
     enableTemperatureSensor(true);
     uint32_t rawResult = readResult();
-	enableTemperatureSensor(false);
+    enableTemperatureSensor(false);
     
     uint16_t result = (uint16_t)(rawResult >> 18);
     if(result>>13){
         result = ~(result-1) & 0x3777;
-		return result * (-0.03125);
+        return result * (-0.03125);
     }
   
     return result * 0.03125;
