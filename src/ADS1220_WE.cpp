@@ -119,6 +119,7 @@ void ADS1220_WE::setOperatingMode(ads1220OpMode mode){
 }
 
 void ADS1220_WE::setConversionMode(ads1220ConvMode mode){
+    convMode = mode;
     regValue = readRegister(ADS1220_CONF_REG_1);
     regValue &= ~0x04;
     regValue |= mode;
