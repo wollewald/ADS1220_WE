@@ -31,10 +31,10 @@ void setup(){
 }
 
 /* General settings / commands */
-//  start(); // wake up from power down and start measurement
-//  reset(); // resets the ADS1220; all settings will change to default
-//  powerDown(); // send the ADS1220 to sleep
-//  setSPIClockSpeed(8000000); // set SPI clock speed, default is 4 MHz
+//  ads.start(); // wake up from power down and start measurement
+//  ads.reset(); // resets the ADS1220; all settings will change to default
+//  ads.powerDown(); // send the ADS1220 to sleep
+//  ads.setSPIClockSpeed(8000000); // set SPI clock speed, default is 4 MHz
 
 /* You set the channels to be measured with setCompareChannels(); You
  * can choose the following parameters:
@@ -148,7 +148,7 @@ void setup(){
  */
 //  ads.setFIRFilter(ADS1220_50HZ_60HZ);
 
-/* When data is ready the DRDY pin will turn from High to Low. In addition, also the DOUT pin 
+/* When data is ready the DRDY pin will turn from HIGH to LOW. In addition, also the DOUT pin 
  * can be set as a data ready pin. The function is setDrdyMode(), parameters are:
  * ADS1220_DRDY        only DRDY pin is indicating data readiness  (default);
  * ADS1220_DOUT_DRDY   DRDY and DOUT pin indicate data readiness
@@ -157,7 +157,11 @@ void setup(){
 
 void loop(){
 
-/* The following functions query measured values frm the ADS1220: */
+/* The following functions query measured values from the ADS1220. If you request values in single-shot 
+ * mode, the conversion will be initiated automatically. The value will be delivered once DRDY goes LOW. 
+ * This ensures that you will receive "fresh" data. This is particularly important when you change 
+ * channels.  
+ */
 //  ads.getVoltage_mV(); // get result in millivolts
 //  ads.getVoltage_muV(); // get result in microvolts
 //  ads.getRawData();  // get raw result (signed 24 bit as long int)
