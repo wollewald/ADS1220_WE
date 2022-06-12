@@ -275,12 +275,14 @@ int32_t ADS1220_WE::getRawData(){
 float ADS1220_WE::getTemperature(){
     enableTemperatureSensor(true);
     uint32_t rawResult = readResult();
-    int32_t result = (int32_t)(rawResult >> 18);
-    if(result>>13){
-        result = -1 * ((~result & 0x3777) + 1);
-    }
-    enableTemperatureSensor(false);
+	enableTemperatureSensor(false);
     
+    uint16_t result = (uint16_t)(rawResult >> 18);
+    if(result>>13){
+        result = ~(result-1) & 0x3777;
+		return result * (-0.03125);
+    }
+  
     return result * 0.03125;
 }
 
@@ -290,7 +292,7 @@ float ADS1220_WE::getTemperature(){
 
 int32_t ADS1220_WE::getData(){
     uint32_t rawResult = readResult();
-    int32_t result = (int32_t)(rawResult >> 8);
+    int32_t result = ((int32_t)(rawResult)) >> 8;
     
     return result;
 }
