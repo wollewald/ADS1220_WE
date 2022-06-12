@@ -29,6 +29,11 @@ void setup(){
     Serial.println("ADS1220 is not connected!");
     while(1);
   }
+/* The voltages to be measured need to be between negative VREF + 0.2 V and positive
+ * VREF -0.2 V if PGA is enabled. For this basic example I disable PGA, to be on the 
+ * safe side.
+ */
+  ads.bypassPGA(true); 
 }
 
 /* 
