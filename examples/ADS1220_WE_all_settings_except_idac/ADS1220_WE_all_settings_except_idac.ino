@@ -28,7 +28,6 @@ void setup(){
     Serial.println("ADS1220 is not connected!");
     while(1);
   }
-}
 
 /* General settings / commands */
 //  ads.start(); // wake up from power down and start measurement
@@ -154,6 +153,8 @@ void setup(){
  * ADS1220_DOUT_DRDY   DRDY and DOUT pin indicate data readiness
  */
 //  ads.setDrdyMode(ADS1220_DOUT_DRDY);
+  
+} // end setup
 
 void loop(){
 
