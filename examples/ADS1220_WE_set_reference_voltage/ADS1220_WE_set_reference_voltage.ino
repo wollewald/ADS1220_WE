@@ -34,8 +34,8 @@ void setup(){
   }
 }
 
-/* For better readability of the code the setting options are explaing here and not
- * in loop where the functions are used.
+/* For better readability of the code the setting options are explained here and not
+ * in loop() where the functions are used.
  * 
  * You set the channels to be measured with setCompareChannels(); You
  * can choose the following parameters:
