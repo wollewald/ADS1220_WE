@@ -65,7 +65,7 @@ void setup(){
  * The parameters you can choose are:
  * ADS1220_GAIN_X with X = 1,2,4,8,16,32,64 or 128
  * With getGainFactor() you can query the gain. The function returns the effective gain and not the 
- * gain set in the register. Under certian conditions thes are are different. E.g. the effective gain 
+ * gain set in the register. Under certain conditions these are are different. E.g. the effective gain 
  * is set to 1 when external references are measured. 
  */
 //  ads.setGain(ADS1220_GAIN_16);
