@@ -73,22 +73,29 @@ void ADS1220_WE::setCompareChannels(ads1220Mux mux){
         gain = 1 << regValue;
         refMeasurement = false;
     }
+    regValue = readRegister(ADS1220_CONF_REG_0);
+    regValue &= ~0xF1;
+    regValue |= mux;
+    regValue |= !(doNotBypassPgaIfPossible & 0x01);
+    writeRegister(ADS1220_CONF_REG_0, regValue);
     if(((mux >= 0x08) && (mux <=0xB0)) && (gain > 4)){
         gain = 4;   // max gain is 4 if single-ended input is chosen or PGA is bypassed
+        forcedBypassPGA();
     }
-    regValue = readRegister(ADS1220_CONF_REG_0);
-    regValue &= ~0xF0;
-    regValue |= mux;
-    writeRegister(ADS1220_CONF_REG_0, regValue);
 }
 
 void ADS1220_WE::setGain(ads1220Gain enumGain){
     regValue = readRegister(ADS1220_CONF_REG_0);
+    ads1220Mux mux = (ads1220Mux)(regValue & 0xE0);
     regValue &= ~0x0E;
     regValue |= enumGain;
     writeRegister(ADS1220_CONF_REG_0, regValue);
     
     gain = 1<<(enumGain>>1);
+    if(((mux >= 0x08) && (mux <=0xB0)) && (gain > 4)){
+        gain = 4;   // max gain is 4 if single-ended input is chosen or PGA is bypassed
+        forcedBypassPGA();
+    }
 }
 
 uint8_t ADS1220_WE::getGainFactor(){
@@ -99,7 +106,14 @@ void ADS1220_WE::bypassPGA(bool bypass){
     regValue = readRegister(ADS1220_CONF_REG_0);
     regValue &= ~0x01;
     regValue |= bypass;
+    doNotBypassPgaIfPossible = !(bypass & 0x01);
+    Serial.println(doNotBypassPgaIfPossible);
     writeRegister(ADS1220_CONF_REG_0, regValue);
+}
+
+bool ADS1220_WE::isPGABypassed(){
+    regValue = readRegister(ADS1220_CONF_REG_0);
+    return regValue & 0x01;
 }
 
 /* Configuration Register 1 settings */
@@ -290,6 +304,12 @@ float ADS1220_WE::getTemperature(){
     private functions
 *************************************************/
 
+void ADS1220_WE::forcedBypassPGA(){
+    regValue = readRegister(ADS1220_CONF_REG_0);
+    regValue |= 0x01;
+    writeRegister(ADS1220_CONF_REG_0, regValue);
+}
+
 int32_t ADS1220_WE::getData(){
     uint32_t rawResult = readResult();
     int32_t result = ((int32_t)(rawResult)) >> 8;
@@ -351,5 +371,4 @@ void ADS1220_WE::command(uint8_t cmd){
     digitalWrite(csPin, HIGH);
     _spi->endTransaction();
 }   
-
 

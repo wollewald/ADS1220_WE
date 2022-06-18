@@ -158,6 +158,7 @@ public:
     void setGain(ads1220Gain gain);
     uint8_t getGainFactor();
     void bypassPGA(bool bypass);
+    bool isPGABypassed();
     
     /* Configuration Register 1 settings */
     void setDataRate(ads1220DataRate rate);
@@ -201,8 +202,10 @@ private:
     float vRef;
     uint8_t gain;
     bool refMeasurement; 
+    bool doNotBypassPgaIfPossible;
     ads1220ConvMode convMode;
 
+    void forcedBypassPGA();
     int32_t getData();
     uint32_t readResult();
     uint8_t readRegister(uint8_t reg);
