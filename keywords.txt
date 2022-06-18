@@ -33,6 +33,7 @@ setCompareChannels	KEYWORD2
 setGain	KEYWORD2
 getGainFactor	KEYWORD2
 bypassPGA	KEYWORD2
+isPGABypassed	KEYWORD2
 setDataRate	KEYWORD2
 setOperatingMode	KEYWORD2
 setConversionMode	KEYWORD2
