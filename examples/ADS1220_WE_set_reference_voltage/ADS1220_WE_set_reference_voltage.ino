@@ -34,8 +34,8 @@ void setup(){
   }
 }
 
-/* For better readability of the code the setting options are explained here and not
- * in loop() where the functions are used.
+/* For better readability of the code the setting options are explaing here and not
+ * in loop where the functions are used.
  * 
  * You set the channels to be measured with setCompareChannels(); You
  * can choose the following parameters:
@@ -68,9 +68,9 @@ void setup(){
  * setVRefValue_V(vRef in volts);
  * 
  * Alternatively, you can set the reference voltage source and let the ADS1220 measure 
- * the reference. Be aware that this is not a measurement with highest precision. "Calibration" 
- * might be a bit misleading. You should take the lowest data rate (default) for most accurate 
- * results. You can use the following functions:
+ * the reference. Be aware that this is not a measurement with highest precision. 
+ * "Calibration" might be a bit misleading. You should take the lowest data rate (default) 
+ * for most accurate results. You can use the following functions:
  * setRefp0Refn0AsVefAndCalibrate();
  * setRefp1Refn1AsVefAndCalibrate();
  * setAvddAvssAsVrefAndCalibrate();
