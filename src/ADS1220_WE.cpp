@@ -107,7 +107,6 @@ void ADS1220_WE::bypassPGA(bool bypass){
     regValue &= ~0x01;
     regValue |= bypass;
     doNotBypassPgaIfPossible = !(bypass & 0x01);
-    Serial.println(doNotBypassPgaIfPossible);
     writeRegister(ADS1220_CONF_REG_0, regValue);
 }
 
