@@ -76,6 +76,8 @@ void setup(){
  * setAvddAvssAsVrefAndCalibrate();
  * setIntVRef();
  * The latter function sets the default settings. 
+ * 
+ * Be aware that VREFPx must be >= VREFNx + 0.75V.
  */
 
 void loop(){
