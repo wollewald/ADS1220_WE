@@ -189,6 +189,7 @@ void ADS1220_WE::setIdacCurrent(ads1220IdacCurrent current){
     regValue &= ~0x07;
     regValue |= current;
     writeRegister(ADS1220_CONF_REG_2, regValue);
+    delayMicroseconds(200);
 }
 
 /* Configuration Register 3 settings */
