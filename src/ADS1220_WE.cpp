@@ -86,7 +86,7 @@ void ADS1220_WE::setCompareChannels(ads1220Mux mux){
 
 void ADS1220_WE::setGain(ads1220Gain enumGain){
     regValue = readRegister(ADS1220_CONF_REG_0);
-    ads1220Mux mux = (ads1220Mux)(regValue & 0xE0);
+    ads1220Mux mux = (ads1220Mux)(regValue & 0xF0);
     regValue &= ~0x0E;
     regValue |= enumGain;
     writeRegister(ADS1220_CONF_REG_0, regValue);
