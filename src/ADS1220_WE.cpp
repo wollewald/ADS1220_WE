@@ -92,7 +92,7 @@ void ADS1220_WE::setGain(ads1220Gain enumGain){
     writeRegister(ADS1220_CONF_REG_0, regValue);
     
     gain = 1<<(enumGain>>1);
-    if(((mux >= 0x08) && (mux <=0xB0)) && (gain > 4)){
+    if(((mux >= 0x80) && (mux <=0xB0)) && (gain > 4)){
         gain = 4;   // max gain is 4 if single-ended input is chosen or PGA is bypassed
         forcedBypassPGA();
     }
