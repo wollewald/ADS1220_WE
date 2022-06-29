@@ -150,6 +150,8 @@ void setup() {
   //  ads.setRefp1Refn1AsVefAndCalibrate(); //or:
   //  ads.setAvddAvssAsVrefAndCalibrate(); //or:
   //  ads.setIntVRef();
+  //  to query VRef:
+  //  ads.getVRef_V(); // returns VRef as float
 
   /* You can set a filter to reduce 50 and or 60 Hz noise with setFIRFilter(); Parameters:
      ADS1220_NONE       no filter (default)
