@@ -1,3 +1,15 @@
+/***************************************************************************
+  Example sketch for the ADS1220_WE library
+  
+  This sketch shows how to use the excitation currents IDAC1 and IDAC2.
+  
+  Further information can be found soon on:
+  
+  https://wolles-elektronikkiste.de/         (German)
+  https://wolles-elektronikkiste.de/en/      (English)
+  
+***************************************************************************/
+
 #include <ADS1220_WE.h>
 #include <SPI.h>
 
