@@ -28,7 +28,7 @@ void setup() {
   ads.setGain(ADS1220_GAIN_1);
   ads.bypassPGA(true); // since the negative voltage is AVSS, we have to bypass PGA 
 
-  /* The ADS1220 can provide two excitation currents, IDAC1 and IDAC2. It takes up to 200µs
+  /* The ADS1220 can provide two excitation currents, IDAC1 and IDAC2. It takes up to 200 µs
      until the current is set up. The library includes a delay, so you don't have to add one.
      You can switch IDAC1 and IDAC2 on and off individually but the current is the same for 
      both.
