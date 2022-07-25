@@ -78,7 +78,7 @@ void ADS1220_WE::setCompareChannels(ads1220Mux mux){
     regValue |= mux;
     regValue |= !(doNotBypassPgaIfPossible & 0x01);
     writeRegister(ADS1220_CONF_REG_0, regValue);
-    if((mux >= 0x80) && (mux <=0xB0)){
+    if((mux >= 0x80) && (mux <=0xD0)){
         if(gain > 4){
             gain = 4;           // max gain is 4 if single-ended input is chosen or PGA is bypassed
         }
@@ -94,7 +94,7 @@ void ADS1220_WE::setGain(ads1220Gain enumGain){
     writeRegister(ADS1220_CONF_REG_0, regValue);
     
     gain = 1<<(enumGain>>1);
-    if((mux >= 0x80) && (mux <=0xB0)){
+    if((mux >= 0x80) && (mux <=0xD0)){
         if(gain > 4){
             gain = 4;   // max gain is 4 if single-ended input is chosen or PGA is bypassed
         }
