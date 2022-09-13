@@ -4,8 +4,16 @@ This is an Arduino library for the 24-bit, 4 channel ADS1220 ADC. I have tried t
 
 If you like the library, it would be great if you could give a star. If you find bugs, please inform me.
 
-In some weeks I will publish a tutorial on my website:
+On my website you find:
 
-https://wolles-elektronikkiste.de/        (German) 
+1) An article about the ADS1220 and the use of thhis library
 
-https://wolles-elektronikkiste.de/en/     (English)
+https://wolles-elektronikkiste.de/ads1220-4-kanal-24-bit-a-d-wandler       (German) 
+
+https://wolles-elektronikkiste.de/en/4-channel-24-bit-adc-ads1220          (English)
+
+2) An article how to use the ADS1220 for typical applications, such as thermocouples, NTCs, RTDs or Wheatstone bridges:
+
+https://wolles-elektronikkiste.de/ads1220-teil-2-anwendungen                (German)
+
+https://wolles-elektronikkiste.de/en/ads1220-part-2-applications            (English)
