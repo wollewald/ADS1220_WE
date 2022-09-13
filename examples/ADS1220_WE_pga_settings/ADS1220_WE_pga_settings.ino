@@ -6,10 +6,15 @@
 * conditions. If you want to try this example, apply a voltage of < 250 mV to AIN0/
 * AIN1 (differential) and to AIN2 (single-ended, i.e. vs. AVSS).
 * 
-* Further information can be found soon on:
-*
-* https://wolles-elektronikkiste.de/         (German)
-* https://wolles-elektronikkiste.de/en/      (English)
+* On my website you find:
+*    1) An article about the ADS1220 and the use of this library
+*       https://wolles-elektronikkiste.de/ads1220-4-kanal-24-bit-a-d-wandler  (German) 
+*       https://wolles-elektronikkiste.de/en/4-channel-24-bit-adc-ads1220     (English)
+* 
+*   2) An article how to use the ADS1220 for typical applications, such as thermocouples, 
+*      NTCs, RTDs or Wheatstone bridges:
+*      https://wolles-elektronikkiste.de/ads1220-teil-2-anwendungen          (German)
+*      https://wolles-elektronikkiste.de/en/ads1220-part-2-applications      (English)
 * 
 ***************************************************************************/
 
