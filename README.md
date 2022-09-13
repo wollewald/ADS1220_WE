@@ -6,7 +6,7 @@ If you like the library, it would be great if you could give a star. If you find
 
 On my website you find:
 
-1) An article about the ADS1220 and the use of thhis library
+1) An article about the ADS1220 and the use of this library
 
 https://wolles-elektronikkiste.de/ads1220-4-kanal-24-bit-a-d-wandler       (German) 
 
