@@ -34,23 +34,6 @@
 #endif
 #include<SPI.h>
 
-//ADS1220 SPI commands
-#define ADS1220_RESET       0x06    
-#define ADS1220_START       0x08    //Send the START/SYNC command (08h) to start converting in continuous conversion mode
-#define ADS1220_PWRDOWN     0x02
-#define ADS1220_RDATA       0x10
-#define ADS1220_WREG        0x40    // write register
-#define ADS1220_RREG        0x20    // read register
-
-/* registers */
-#define ADS1220_CONF_REG_0  0x00
-#define ADS1220_CONF_REG_1  0x01
-#define ADS1220_CONF_REG_2  0x02
-#define ADS1220_CONF_REG_3  0x03
-
-/* other */
-#define ADS1220_RANGE 8388607.0 // = 2^23 - 1
-
 typedef enum ADS1220_MUX {
     ADS1220_MUX_0_1     = 0x00,   //default
     ADS1220_MUX_0_2     = 0x10,
@@ -150,73 +133,93 @@ typedef enum ADS1220_DRDY_MODE {
 
 class ADS1220_WE
 {
-public:
-    ADS1220_WE(int cs, int drdy, SPIClass *s = &SPI);
-    
-    /* Commands */
-    uint8_t init();
-    void start();
-    void reset();
-    void powerDown();
-    
-    /* Configuration Register 0 settings */
-    void setCompareChannels(ads1220Mux mux);
-    void setGain(ads1220Gain gain);
-    uint8_t getGainFactor();
-    void bypassPGA(bool bypass);
-    bool isPGABypassed();
-    
-    /* Configuration Register 1 settings */
-    void setDataRate(ads1220DataRate rate);
-    void setOperatingMode(ads1220OpMode mode);
-    void setConversionMode(ads1220ConvMode mode);
-    void enableTemperatureSensor(bool enable);
-    void enableBurnOutCurrentSources(bool enable);
-    
-    /* Configuration Register 2 settings */
-    void setVRefSource(ads1220VRef vRefSource);
-    void setFIRFilter(ads1220FIR fir);
-    void setLowSidePowerSwitch(ads1220PSW psw);
-    void setIdacCurrent(ads1220IdacCurrent current);
-    
-    /* Configuration Register 3 settings */
-    void setIdac1Routing(ads1220IdacRouting route);
-    void setIdac2Routing(ads1220IdacRouting route);
-    void setDrdyMode(ads1220DrdyMode mode);
-    
-    /* Other settings */
-    void setSPIClockSpeed(unsigned long clock);
-    void setVRefValue_V(float refVal);
-    float getVRef_V();
-    void setAvddAvssAsVrefAndCalibrate();
-    void setRefp0Refn0AsVefAndCalibrate();
-    void setRefp1Refn1AsVefAndCalibrate();
-    void setIntVRef();
-    
-    /* Results */
-    float getVoltage_mV();
-    float getVoltage_muV();
-    int32_t getRawData();
-    float getTemperature();
+    public:
 
-private:
-    SPIClass *_spi;
-    SPISettings mySPISettings;
-    int16_t csPin;
-    int16_t drdyPin;
-    uint8_t regValue;
-    float vRef;
-    uint8_t gain;
-    bool refMeasurement; 
-    bool doNotBypassPgaIfPossible;
-    ads1220ConvMode convMode;
+        //ADS1220 SPI commands
+        static constexpr uint8_t ADS1220_RESET       {0x06};    
+        static constexpr uint8_t ADS1220_START       {0x08};    //Send the START/SYNC command (08h) to start converting in continuous conversion mode
+        static constexpr uint8_t ADS1220_PWRDOWN     {0x02};
+        static constexpr uint8_t ADS1220_RDATA       {0x10};
+        static constexpr uint8_t ADS1220_WREG        {0x40};    // write register
+        static constexpr uint8_t ADS1220_RREG        {0x20};    // read register
 
-    void forcedBypassPGA();
-    int32_t getData();
-    uint32_t readResult();
-    uint8_t readRegister(uint8_t reg);
-    void writeRegister(uint8_t reg, uint8_t val);
-    void command(uint8_t cmd);
+        /* registers */
+        static constexpr uint8_t ADS1220_CONF_REG_0  {0x00};
+        static constexpr uint8_t ADS1220_CONF_REG_1  {0x01};
+        static constexpr uint8_t ADS1220_CONF_REG_2  {0x02};
+        static constexpr uint8_t ADS1220_CONF_REG_3  {0x03};
+
+        /* other */
+        static constexpr float ADS1220_RANGE {8388607.0}; // = 2^23 - 1 as float
+    
+        /* Constructors */
+        ADS1220_WE(int cs, int drdy) : _spi{&SPI}, csPin{cs}, drdyPin{drdy} {}
+        ADS1220_WE(SPIClass *s, int cs, int drdy) : _spi{s}, csPin{cs}, drdyPin{drdy} {}
+            
+        /* Commands */
+        uint8_t init();
+        void start();
+        void reset();
+        void powerDown();
+        
+        /* Configuration Register 0 settings */
+        void setCompareChannels(ads1220Mux mux);
+        void setGain(ads1220Gain gain);
+        uint8_t getGainFactor();
+        void bypassPGA(bool bypass);
+        bool isPGABypassed();
+        
+        /* Configuration Register 1 settings */
+        void setDataRate(ads1220DataRate rate);
+        void setOperatingMode(ads1220OpMode mode);
+        void setConversionMode(ads1220ConvMode mode);
+        void enableTemperatureSensor(bool enable);
+        void enableBurnOutCurrentSources(bool enable);
+        
+        /* Configuration Register 2 settings */
+        void setVRefSource(ads1220VRef vRefSource);
+        void setFIRFilter(ads1220FIR fir);
+        void setLowSidePowerSwitch(ads1220PSW psw);
+        void setIdacCurrent(ads1220IdacCurrent current);
+        
+        /* Configuration Register 3 settings */
+        void setIdac1Routing(ads1220IdacRouting route);
+        void setIdac2Routing(ads1220IdacRouting route);
+        void setDrdyMode(ads1220DrdyMode mode);
+        
+        /* Other settings */
+        void setSPIClockSpeed(unsigned long clock);
+        void setVRefValue_V(float refVal);
+        float getVRef_V();
+        void setAvddAvssAsVrefAndCalibrate();
+        void setRefp0Refn0AsVefAndCalibrate();
+        void setRefp1Refn1AsVefAndCalibrate();
+        void setIntVRef();
+        
+        /* Results */
+        float getVoltage_mV();
+        float getVoltage_muV();
+        int32_t getRawData();
+        float getTemperature();
+
+    protected:
+        SPIClass *_spi;
+        SPISettings mySPISettings;
+        int csPin;
+        int drdyPin;
+        uint8_t regValue;
+        float vRef;
+        uint8_t gain;
+        bool refMeasurement; 
+        bool doNotBypassPgaIfPossible;
+        ads1220ConvMode convMode;
+
+        void forcedBypassPGA();
+        int32_t getData();
+        uint32_t readResult();
+        uint8_t readRegister(uint8_t reg);
+        void writeRegister(uint8_t reg, uint8_t val);
+        void command(uint8_t cmd);
 };
 
 #endif

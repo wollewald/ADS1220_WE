@@ -25,12 +25,6 @@
 
 #include "ADS1220_WE.h"
 
-ADS1220_WE::ADS1220_WE(int cs, int drdy, SPIClass *s){
-    csPin = cs;
-    drdyPin = drdy;
-    _spi = s;
-}
-
 uint8_t ADS1220_WE::init(){
     vRef = 2.048;
     gain = 1; 
@@ -300,7 +294,7 @@ float ADS1220_WE::getTemperature(){
     uint32_t rawResult = readResult();
     enableTemperatureSensor(false);
     
-    uint16_t result = (uint16_t)(rawResult >> 18);
+    uint16_t result = static_cast<uint16_t>(rawResult >> 18);
     if(result>>13){
         result = ~(result-1) & 0x3777;
         return result * (-0.03125);
@@ -321,7 +315,7 @@ void ADS1220_WE::forcedBypassPGA(){
 
 int32_t ADS1220_WE::getData(){
     uint32_t rawResult = readResult();
-    int32_t result = ((int32_t)(rawResult)) >> 8;
+    int32_t result = (static_cast<int32_t>(rawResult)) >> 8;
     
     return result;
 }
