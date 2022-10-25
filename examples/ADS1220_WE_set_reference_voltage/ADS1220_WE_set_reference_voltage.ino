@@ -29,7 +29,7 @@
 /* Create your ADS1220 object */
 ADS1220_WE ads = ADS1220_WE(ADS1220_CS_PIN, ADS1220_DRDY_PIN);
 /* Alternatively you can also pass the SPI object as reference */
-// ADS1220_WE ads = ADS1220_WE(ADS1220_CS_PIN, ADS1220_DRDY_PIN, &SPI);
+// ADS1220_WE ads = ADS1220_WE(&SPI, ADS1220_CS_PIN, ADS1220_DRDY_PIN);
 
 void setup(){
   Serial.begin(9600);
