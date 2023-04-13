@@ -263,7 +263,7 @@ void ADS1220_WE::setRefp1Refn1AsVefAndCalibrate(){
 }
 
 void ADS1220_WE::setIntVRef(){
-    setVRefSource(ADS1220_VREF_REFP1_REFN1);
+    setVRefSource(ADS1220_VREF_INT);
     vRef = 2.048;
 }
     
