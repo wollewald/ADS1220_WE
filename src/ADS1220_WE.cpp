@@ -370,7 +370,7 @@ void ADS1220_WE::writeRegister(uint8_t reg, uint8_t val){
 void ADS1220_WE::command(uint8_t cmd){
     _spi->beginTransaction(mySPISettings);
     digitalWrite(csPin, LOW);
-    SPI.transfer(cmd);
+    _spi->transfer(cmd);
     digitalWrite(csPin, HIGH);
     _spi->endTransaction();
 }   
