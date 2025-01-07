@@ -41,7 +41,6 @@ uint8_t ADS1220_WE::init(){
     uint8_t ctrlVal = 0;
     bypassPGA(true); // just a test if the ADS1220 is connected
     ctrlVal = readRegister(ADS1220_CONF_REG_0);
-    Serial.println(ctrlVal); // for checking
     bypassPGA(false);
     if(ctrlVal == 1){
       return true;
