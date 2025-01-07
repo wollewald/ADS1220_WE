@@ -35,14 +35,18 @@ uint8_t ADS1220_WE::init(){
     pinMode(drdyPin, INPUT);
     digitalWrite(csPin, HIGH);
     mySPISettings = SPISettings(4000000, MSBFIRST, SPI_MODE1); 
-    reset();
+    reset(); 
+    delayMicroseconds(100);
     start();
     uint8_t ctrlVal = 0;
     bypassPGA(true); // just a test if the ADS1220 is connected
     ctrlVal = readRegister(ADS1220_CONF_REG_0);
-    ctrlVal = ctrlVal & 0x01;
+    Serial.println(ctrlVal); // for checking
     bypassPGA(false);
-    return ctrlVal; 
+    if(ctrlVal == 1){
+      return true;
+    }
+    else return false;
 }
 
 void ADS1220_WE::start(){
