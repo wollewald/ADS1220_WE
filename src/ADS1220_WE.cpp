@@ -36,7 +36,6 @@ uint8_t ADS1220_WE::init(){
     digitalWrite(csPin, HIGH);
     mySPISettings = SPISettings(4000000, MSBFIRST, SPI_MODE1); 
     reset(); 
-    delayMicroseconds(100);
     start();
     uint8_t ctrlVal = 0;
     bypassPGA(true); // just a test if the ADS1220 is connected
