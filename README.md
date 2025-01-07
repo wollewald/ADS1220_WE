@@ -20,4 +20,4 @@ https://wolles-elektronikkiste.de/en/ads1220-part-2-applications            (Eng
 
 <h3>Known Issue</h3>
 
-The sketch ADS1220_WE_two_devices_one_spi_interface.ino is not working with the Arduino UNO R4 Minima or the Arduino UNO R4 WiFi. Investigations are ongoing. The problem seems to be on the Arduino side and not on the lib side. 
+The sketch ADS1220_WE_two_devices_one_spi_interface.ino is not working with the Arduino UNO R4 Minima or the Arduino UNO R4 WiFi. Investigations are ongoing. The problem seems to be on the Arduino side and not on the lib side. On an Arduino UNO R3, it works perfectly. 
