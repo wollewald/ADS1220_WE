@@ -17,3 +17,7 @@ https://wolles-elektronikkiste.de/en/4-channel-24-bit-adc-ads1220          (Engl
 https://wolles-elektronikkiste.de/ads1220-teil-2-anwendungen                (German)
 
 https://wolles-elektronikkiste.de/en/ads1220-part-2-applications            (English)
+
+<h3>Known Issue</h3>
+
+The sketch ADS1220_two_devices_one_spi_interface.ino is not working with the Arduino UNO R4 Minima or the Arduino UNO R4 WiFi. Investigations are ongoing. The problem seems to be on the Arduino side and not on the lib side. 
