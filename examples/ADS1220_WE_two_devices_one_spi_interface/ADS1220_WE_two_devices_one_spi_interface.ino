@@ -2,7 +2,8 @@
 * Example sketch for the ADS1220_WE library
 *
 * This sketch shows how to use two ADS1220 modules attached to the same SPI 
-* interface. This sketch was tested on an Arduino UNO R3.
+* interface. This sketch was tested on an Arduino UNO R3 and Arduino UNO R4.
+* For an Arduino UNO R4 (WIFI or Minima) pay attention to lines 29-32!
 * 
 ***************************************************************************/
 
@@ -22,8 +23,13 @@ ADS1220_WE ads1 = ADS1220_WE(ADS1220_1_CS_PIN, ADS1220_1_DRDY_PIN);
 ADS1220_WE ads2 = ADS1220_WE(ADS1220_2_CS_PIN, ADS1220_2_DRDY_PIN);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   while (!Serial);
+  
+  /* Choose SPI clock speed here. For reasons I don't know the sketch only works
+     on an Arduino UNO R4 if you choose different SPI clock speeds for both devices */
+//   ads1.setSPIClockSpeed(4000000); // set SPI clock speed, default is 4 MHz
+//   ads2.setSPIClockSpeed(4000001); // For an Arduino R4 Minima or WIFI choose e.g. 4000001 (bizarre, I know!)
   
   digitalWrite(ADS1220_1_CS_PIN, HIGH);
   pinMode(ADS1220_1_CS_PIN, OUTPUT);
