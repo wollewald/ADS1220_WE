@@ -204,7 +204,8 @@ class ADS1220_WE
 
     protected:
         SPIClass *_spi;
-        SPISettings mySPISettings;
+        SPISettings mySPISettings = SPISettings();
+        unsigned long spiClock = 4000000;
         int csPin;
         int drdyPin;
         uint8_t regValue;

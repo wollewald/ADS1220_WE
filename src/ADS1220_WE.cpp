@@ -30,11 +30,11 @@ uint8_t ADS1220_WE::init(){
     gain = 1; 
     refMeasurement = false; 
     convMode = ADS1220_SINGLE_SHOT;
+    setSPIClockSpeed(spiClock);
     _spi->begin();
     pinMode(csPin, OUTPUT);
     pinMode(drdyPin, INPUT);
     digitalWrite(csPin, HIGH);
-    mySPISettings = SPISettings(4000000, MSBFIRST, SPI_MODE1); 
     reset(); 
     start();
     uint8_t ctrlVal = 0;
@@ -222,8 +222,9 @@ void ADS1220_WE::setDrdyMode(ads1220DrdyMode mode){
 
 /* Other settings */
 
-void ADS1220_WE::setSPIClockSpeed(unsigned long clock){
-    mySPISettings = SPISettings(clock, MSBFIRST, SPI_MODE1);
+void ADS1220_WE::setSPIClockSpeed(unsigned long clock = 4000000){
+    spiClock = clock;
+    mySPISettings = SPISettings(spiClock, MSBFIRST, SPI_MODE1);
 }
 
 void ADS1220_WE::setVRefValue_V(float refVal){
