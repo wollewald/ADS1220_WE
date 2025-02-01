@@ -30,8 +30,11 @@ uint8_t ADS1220_WE::init(){
     gain = 1; 
     refMeasurement = false; 
     convMode = ADS1220_SINGLE_SHOT;
+    if(!spiInitialized){
+        _spi->begin();
+        spiInitialized = true;
+    }
     setSPIClockSpeed(spiClock);
-    _spi->begin();
     pinMode(csPin, OUTPUT);
     pinMode(drdyPin, INPUT);
     digitalWrite(csPin, HIGH);

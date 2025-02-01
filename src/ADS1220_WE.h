@@ -153,8 +153,8 @@ class ADS1220_WE
         static constexpr float ADS1220_RANGE {8388607.0}; // = 2^23 - 1 as float
     
         /* Constructors */
-        ADS1220_WE(int cs, int drdy) : _spi{&SPI}, csPin{cs}, drdyPin{drdy} {}
-        ADS1220_WE(SPIClass *s, int cs, int drdy) : _spi{s}, csPin{cs}, drdyPin{drdy} {}
+        ADS1220_WE(int cs, int drdy, bool spiInit = false) : _spi{&SPI}, csPin{cs}, drdyPin{drdy}, spiInitialized{spiInit} {}
+        ADS1220_WE(SPIClass *s, int cs, int drdy, bool spiInit = false) : _spi{s}, csPin{cs}, drdyPin{drdy}, spiInitialized{spiInit} {}
             
         /* Commands */
         uint8_t init();
@@ -208,6 +208,7 @@ class ADS1220_WE
         unsigned long spiClock = 4000000;
         int csPin;
         int drdyPin;
+        bool spiInitialized = false;
         uint8_t regValue;
         float vRef;
         uint8_t gain;
