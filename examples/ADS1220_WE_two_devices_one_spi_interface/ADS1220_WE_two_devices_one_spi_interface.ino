@@ -7,7 +7,6 @@
 * 
 ***************************************************************************/
 
-
 #include <ADS1220_WE.h>
 #include <SPI.h>
 
@@ -18,18 +17,26 @@
 #define ADS1220_2_CS_PIN    5   // Chip Select
 #define ADS1220_2_DRDY_PIN  4   // Data Ready
 
-// Create ADS1220 objects
+#define SPI_INITIALIZED true
+#define SPI_NOT_INITIALIZED false
+
+/* Create ADS1220 objects */
 ADS1220_WE ads1 = ADS1220_WE(ADS1220_1_CS_PIN, ADS1220_1_DRDY_PIN);
 ADS1220_WE ads2 = ADS1220_WE(ADS1220_2_CS_PIN, ADS1220_2_DRDY_PIN);
+
+/* For reasons I don't know, the Arduino UNO R4 WIFI and Minima (and maybe other boards?) don't like
+ * it if SPI.begin() is called a second time, which happens by default if using the above constructors. 
+ * To avoid this use these alternative constructors: */
+// ADS1220_WE ads1 = ADS1220_WE(ADS1220_1_CS_PIN, ADS1220_1_DRDY_PIN, SPI_NOT_INITIALIZED);
+// ADS1220_WE ads2 = ADS1220_WE(ADS1220_2_CS_PIN, ADS1220_2_DRDY_PIN, SPI_INITIALIZED);
 
 void setup() {
   Serial.begin(9600);
   while (!Serial);
   
-  /* Choose SPI clock speed here. For reasons I don't know the sketch only works
-     on an Arduino UNO R4 if you choose different SPI clock speeds for both devices */
-//   ads1.setSPIClockSpeed(4000000); // set SPI clock speed, default is 4 MHz
-//   ads2.setSPIClockSpeed(4000001); // For an Arduino R4 Minima or WIFI choose e.g. 4000001 (bizarre, I know!)
+  /* Choose SPI clock speed here. */
+  // ads1.setSPIClockSpeed(4000000); // set SPI clock speed, default is 4 MHz
+  // ads2.setSPIClockSpeed(4000000); 
   
   digitalWrite(ADS1220_1_CS_PIN, HIGH);
   pinMode(ADS1220_1_CS_PIN, OUTPUT);
