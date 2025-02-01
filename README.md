@@ -18,6 +18,16 @@ https://wolles-elektronikkiste.de/ads1220-teil-2-anwendungen                (Ger
 
 https://wolles-elektronikkiste.de/en/ads1220-part-2-applications            (English)
 
-<h3>Known Issue</h3>
+<h3>Using several SPI devices</h3>
 
-The sketch ADS1220_WE_two_devices_one_spi_interface.ino is only working with the Arduino UNO R4 Minima or the Arduino UNO R4 WiFi with a small workaround: choose slightly different SPI clock speeds for both devices, although this has no real effect (see example sketch ADS1220_two_devices_one_spi_interface). On an Arduino UNO R3, it works perfectly without the workaround. Any idea what could be the root cause and how to solve this without workaround is welcome!
+If you use several ADS1220 and the Arduino UNO R4 WIFI or Minima, have a look at ADS1220_WE_two_devices_one_spi_interface.ino. There is an issue if SPI.begin() is called more than once and the sketch shows how to avoid this problem by using an alternative constructor. Please also choose this alternative constructor if you face issues when using other SPI devices in parallel to an ADS1220. There is no need to use the alternative constructor when using an Arduino UNO R3 (or other AVR based boards) or ESP32 - these are the ones I have tested. 
+
+If you compare the SPI begin functions of the Arduino Renesas Core (UNO R4 boards):
+
+https://github.com/arduino/ArduinoCore-renesas/blob/99b34548c5952e7e9b687267f076d24ae782e9dc/libraries/SPI/SPI.cpp#L62
+
+and the Arduino AVR Core:
+
+https://github.com/arduino/ArduinoCore-avr/blob/c8c514c9a19602542bc32c7033f48fecbbda4401/libraries/SPI/src/SPI.cpp#L26
+
+then you will see that the latter checks whether it has been initialized using the variable ``initialized``. Also the the Renesas version has a similar variable called ``_is_initialized`` (see line 163) but it's not used to avoid executing begin() a second time. I am not sure if there is a reason for this. If anyone knows please tell me! 
