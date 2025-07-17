@@ -44,6 +44,7 @@ uint8_t ADS1220_WE::init(){
     bypassPGA(true); // just a test if the ADS1220 is connected
     ctrlVal = readRegister(ADS1220_CONF_REG_0);
     bypassPGA(false);
+    setNoneBlockingMode(false);
     if(ctrlVal == 1){
       return true;
     }
@@ -272,7 +273,14 @@ void ADS1220_WE::setIntVRef(){
     setVRefSource(ADS1220_VREF_INT);
     vRef = 2.048;
 }
-    
+
+void ADS1220_WE::setNoneBlockingMode(bool nonBlocking){
+    nonBlockingMode = nonBlocking;
+}
+
+bool ADS1220_WE::getNoneBlockingMode(){
+    return nonBlockingMode;
+} 
 
 /* Results */
 float ADS1220_WE::getVoltage_mV(){
@@ -333,7 +341,9 @@ uint32_t ADS1220_WE::readResult(){
     if(convMode == ADS1220_SINGLE_SHOT){
         start();
     }
-    while(digitalRead(drdyPin) == HIGH) {}           
+    if(!nonBlockingMode){
+        while(digitalRead(drdyPin) == HIGH) {} 
+    }
     
     _spi->beginTransaction(mySPISettings);
     digitalWrite(csPin, LOW);

@@ -195,6 +195,8 @@ class ADS1220_WE
         void setRefp0Refn0AsVefAndCalibrate();
         void setRefp1Refn1AsVefAndCalibrate();
         void setIntVRef();
+        void setNoneBlockingMode(bool nonBlocking);
+        bool getNoneBlockingMode();
         
         /* Results */
         float getVoltage_mV();
@@ -214,6 +216,7 @@ class ADS1220_WE
         uint8_t gain;
         bool refMeasurement; 
         bool doNotBypassPgaIfPossible;
+        bool nonBlockingMode;
         ads1220ConvMode convMode;
 
         void forcedBypassPGA();
