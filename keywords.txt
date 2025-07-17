@@ -57,6 +57,8 @@ getVoltage_mV	KEYWORD2
 getVoltage_muV	KEYWORD2
 getRawData	KEYWORD2
 getTemperature	KEYWORD2
+setNoneBlockingMode	KEYWORD2
+getNoneBlockingMode	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
