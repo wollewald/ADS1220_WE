@@ -118,6 +118,12 @@ void setup() {
   */
   // ads.setConversionMode(ADS1220_CONTINUOUS);
 
+  /*  When you request a result, the program waits by default until the DRDY-pin is LOW because
+      this indicates that data is available. You can change this behaviour by activating the 
+      non-blocking mode. But then you have to check by yourself that data is available.
+  */
+  // ads.setNoneBlockingMode(true);
+
   /* In order to obtain temperature values, choose enableTemperatureSensor(true); false will
      disable the temperature sensor. As long as the temperature sensor is enabled the ADS1220
      is blocked for this task. To obtain voltage values, you have to switch the sensor off. The
