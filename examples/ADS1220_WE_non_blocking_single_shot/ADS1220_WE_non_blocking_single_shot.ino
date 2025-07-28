@@ -37,7 +37,13 @@ void setup(){
 /* The voltages to be measured need to be between negative VREF + 0.2 V and positive
  * VREF -0.2 V if PGA is enabled. For this basic example I disable PGA, to be on the 
  * safe side. */ 
- ads.setNoneBlockingMode(true); // switch ton non-blocking mode
+ ads.setNonBlockingMode(true); // switch ton non-blocking mode
+ 
+ if(ads.getNonBlockingMode()){ // check non-blocking mode status
+  Serial.println("Non-blocking mode is activated");
+ }
+ else Serial.println("Non-Blocking mode is deactivated ");
+
  ads.bypassPGA(true);
  
 /* 
