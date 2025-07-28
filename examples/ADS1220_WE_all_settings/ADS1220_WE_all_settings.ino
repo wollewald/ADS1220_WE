@@ -120,10 +120,7 @@ void setup() {
 
   /*  When you request a result, the program waits by default until the DRDY-pin is LOW because
       this indicates that data is available. You can change this behaviour by activating the 
-      non-blocking mode. But then, in single-shot mode, you have to start conversions manually 
-      with start() and check by yourself that data is available. In continuous mode you just need
-      to ensure that data is available. Data is not available for short time after reading or if 
-      changing channels.
+      non-blocking mode. But then you have to check by yourself that data is available.
   */
   // ads.setNoneBlockingMode(true);
 
