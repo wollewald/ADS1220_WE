@@ -42,7 +42,7 @@ void setup(){
  if(ads.getNonBlockingMode()){ // check non-blocking mode status
   Serial.println("Non-blocking mode is activated");
  }
- else Serial.println("Non-Blocking mode is deactivated ");
+ else Serial.println("Non-Blocking mode is deactivated");
 
  ads.bypassPGA(true);
  
