@@ -195,8 +195,8 @@ class ADS1220_WE
         void setRefp0Refn0AsVefAndCalibrate();
         void setRefp1Refn1AsVefAndCalibrate();
         void setIntVRef();
-        void setNoneBlockingMode(bool nonBlocking);
-        bool getNoneBlockingMode();
+        void setNonBlockingMode(bool nonBlocking);
+        bool getNonBlockingMode();
         
         /* Results */
         float getVoltage_mV();

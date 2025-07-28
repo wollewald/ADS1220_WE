@@ -44,7 +44,7 @@ uint8_t ADS1220_WE::init(){
     bypassPGA(true); // just a test if the ADS1220 is connected
     ctrlVal = readRegister(ADS1220_CONF_REG_0);
     bypassPGA(false);
-    setNoneBlockingMode(false);
+    setNonBlockingMode(false);
     if(ctrlVal == 1){
       return true;
     }
@@ -246,7 +246,7 @@ void ADS1220_WE::setAvddAvssAsVrefAndCalibrate(){
     for(int i = 0; i<10; i++){
         avssVoltage += getVoltage_mV();
     }
-    vRef = avssVoltage * 4.0 / 10000.0; 
+    vRef = avssVoltage * 4.0f / 10000.0f; 
 }
 
 void ADS1220_WE::setRefp0Refn0AsVefAndCalibrate(){
@@ -256,7 +256,7 @@ void ADS1220_WE::setRefp0Refn0AsVefAndCalibrate(){
     for(int i = 0; i<10; i++){
         ref0Voltage += getVoltage_mV();
     }
-    vRef = ref0Voltage * 4.0 / 10000.0; 
+    vRef = ref0Voltage * 4.0f / 10000.0f; 
 }
 
 void ADS1220_WE::setRefp1Refn1AsVefAndCalibrate(){
@@ -266,7 +266,7 @@ void ADS1220_WE::setRefp1Refn1AsVefAndCalibrate(){
     for(int i = 0; i<10; i++){
         ref1Voltage += getVoltage_mV();
     }
-    vRef = ref1Voltage * 4.0 / 10000.0; 
+    vRef = ref1Voltage * 4.0f / 10000.0f; 
 }
 
 void ADS1220_WE::setIntVRef(){
@@ -274,11 +274,11 @@ void ADS1220_WE::setIntVRef(){
     vRef = 2.048;
 }
 
-void ADS1220_WE::setNoneBlockingMode(bool nonBlocking){
+void ADS1220_WE::setNonBlockingMode(bool nonBlocking){
     nonBlockingMode = nonBlocking;
 }
 
-bool ADS1220_WE::getNoneBlockingMode(){
+bool ADS1220_WE::getNonBlockingMode(){
     return nonBlockingMode;
 } 
 
@@ -287,16 +287,16 @@ float ADS1220_WE::getVoltage_mV(){
     int32_t rawData = getData();
     float resultInMV = 0.0;
     if(refMeasurement){
-        resultInMV = (rawData / ADS1220_RANGE) * 2.048 * 1000.0 / (gain * 1.0);
+        resultInMV = (rawData / ADS1220_RANGE) * 2.048f * 1000.0f / (gain * 1.0f);
     }
     else{
-        resultInMV = (rawData / ADS1220_RANGE) * vRef * 1000.0 / (gain * 1.0);
+        resultInMV = (rawData / ADS1220_RANGE) * vRef * 1000.0f / (gain * 1.0f);
     }
     return resultInMV;
 }
 
 float ADS1220_WE::getVoltage_muV(){
-    return getVoltage_mV() * 1000.0;
+    return getVoltage_mV() * 1000.0f;
 }
 
 int32_t ADS1220_WE::getRawData(){
@@ -311,10 +311,10 @@ float ADS1220_WE::getTemperature(){
     uint16_t result = static_cast<uint16_t>(rawResult >> 18);
     if(result>>13){
         result = ~(result-1) & 0x3777;
-        return result * (-0.03125);
+        return result * (-0.03125f);
     }
   
-    return result * 0.03125;
+    return result * 0.03125f;
 }
 
 /************************************************ 
@@ -339,7 +339,9 @@ uint32_t ADS1220_WE::readResult(){
     uint32_t rawResult = 0;
 
     if(convMode == ADS1220_SINGLE_SHOT){
-        start();
+        if(!nonBlockingMode){
+            start();
+        }
     }
     if(!nonBlockingMode){
         while(digitalRead(drdyPin) == HIGH) {} 
