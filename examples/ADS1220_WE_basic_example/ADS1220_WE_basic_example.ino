@@ -20,8 +20,10 @@
 #include <ADS1220_WE.h>
 #include <SPI.h>
 
-#define ADS1220_CS_PIN    7 // chip select pin
-#define ADS1220_DRDY_PIN  6 // data ready pin 
+/* If you only have one SPI device, then you can save one pin by defining
+  CS_PIN as -1 and connecting CS of the ADS1220 to GND */
+#define ADS1220_CS_PIN    5 // chip select pin
+#define ADS1220_DRDY_PIN  4 // data ready pin 
 
 /* Create your ADS1220 object */
 ADS1220_WE ads = ADS1220_WE(ADS1220_CS_PIN, ADS1220_DRDY_PIN);
