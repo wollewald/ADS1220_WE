@@ -225,6 +225,7 @@ class ADS1220_WE
         uint8_t readRegister(uint8_t reg);
         void writeRegister(uint8_t reg, uint8_t val);
         void command(uint8_t cmd);
+        void setCSPin(uint8_t state);
 };
 
 #endif

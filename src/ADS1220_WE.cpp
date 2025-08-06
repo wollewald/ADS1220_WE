@@ -35,9 +35,11 @@ uint8_t ADS1220_WE::init(){
         spiInitialized = true;
     }
     setSPIClockSpeed(spiClock);
-    pinMode(csPin, OUTPUT);
     pinMode(drdyPin, INPUT);
-    digitalWrite(csPin, HIGH);
+    if(!(csPin < 0)){
+        pinMode(csPin, OUTPUT);
+        digitalWrite(csPin, HIGH);
+    }
     reset(); 
     start();
     uint8_t ctrlVal = 0;
@@ -348,11 +350,11 @@ uint32_t ADS1220_WE::readResult(){
     }
     
     _spi->beginTransaction(mySPISettings);
-    digitalWrite(csPin, LOW);
+    setCSPin(LOW);
     buf[0] = _spi->transfer(0x00);
     buf[1] = _spi->transfer(0x00);
     buf[2] = _spi->transfer(0x00);
-    digitalWrite(csPin, HIGH);
+    setCSPin(HIGH);
     _spi->endTransaction();
     
     rawResult = buf[0];
@@ -367,10 +369,10 @@ uint8_t ADS1220_WE::readRegister(uint8_t reg){
     regValue = 0;
     
     _spi->beginTransaction(mySPISettings);
-    digitalWrite(csPin, LOW);
+    setCSPin(LOW);
     _spi->transfer(ADS1220_RREG | (reg<<2)); 
     regValue = _spi->transfer(0x00);
-    digitalWrite(csPin, HIGH);
+    setCSPin(HIGH);
     _spi->endTransaction();
     
     return regValue;
@@ -378,18 +380,24 @@ uint8_t ADS1220_WE::readRegister(uint8_t reg){
    
 void ADS1220_WE::writeRegister(uint8_t reg, uint8_t val){
     _spi->beginTransaction(mySPISettings);
-    digitalWrite(csPin, LOW);
+    setCSPin(LOW);
     _spi->transfer(ADS1220_WREG | (reg<<2)); 
     _spi->transfer(val);
-    digitalWrite(csPin, HIGH);
+    setCSPin(HIGH);
     _spi->endTransaction();
 }
 
 void ADS1220_WE::command(uint8_t cmd){
     _spi->beginTransaction(mySPISettings);
-    digitalWrite(csPin, LOW);
+    setCSPin(LOW);
     _spi->transfer(cmd);
-    digitalWrite(csPin, HIGH);
+    setCSPin(HIGH);
     _spi->endTransaction();
-}   
+}
+
+void ADS1220_WE::setCSPin(uint8_t state){
+    if (!(csPin < 0)){
+        digitalWrite(csPin, state);
+    }
+}
 
