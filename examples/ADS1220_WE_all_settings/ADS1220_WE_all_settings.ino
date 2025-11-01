@@ -57,7 +57,7 @@ void setup() {
      ADS1220_MUX_3_AVSS           AIN3           AVSS           single-ended
      ADS1220_MUX_REFPX_REFNX_4   REFP0/REFP1   REFN0/REFN1     (REFPX-REFNX)/4; PGA bypassed
      ADS1220_MUX_AVDD_M_AVSS_4    AVDD           AVSS          (AVDD-AVSS)/4; PGA bypassed
-     ADS1220_MUX_AVDD_P_AVSS_2    AVDD           AVSS           AVDD+AVSS)/2
+     ADS1220_MUX_AVDD_P_AVSS_2  (AVDD+AVSS)/2 (AVDD+AVSS)/2     for self test
      The last three modes use the internal reference (2.048 V) and gain = 1, independent of
      your settings.
   */
@@ -239,3 +239,4 @@ void loop() {
   
   delay(2000);
 }
+
