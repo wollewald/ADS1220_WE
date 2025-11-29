@@ -30,6 +30,9 @@
 ADS1220_WE ads = ADS1220_WE(ADS1220_CS_PIN, ADS1220_DRDY_PIN);
 /* Alternatively you can also pass the SPI object as reference */
 // ADS1220_WE ads = ADS1220_WE(&SPI, ADS1220_CS_PIN, ADS1220_DRDY_PIN);
+/* If you have an ESP32 board or an STM32 board, and you want to change
+ the SPI pins, then choose the following: */
+// ADS1220_WE ads = ADS1220_WE(&SPI, ADS1220_CS_PIN, ADS1220_DRDY_PIN, YOUR_MOSI, YOUR_MISO, YOUR_SCLK);
 
 void setup(){
   Serial.begin(9600);
