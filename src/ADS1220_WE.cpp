@@ -25,17 +25,73 @@
 
 #include "ADS1220_WE.h"
 
+/* Constructors */
+
+ADS1220_WE::ADS1220_WE(int cs, int drdy, bool pc, bool spiInit) 
+    : _spi(&SPI)
+    , csPin(cs)
+    , drdyPin(drdy)
+    , spiPinsChanged(pc)
+    , spiInitialized(spiInit) 
+    {} // intentionally empty}
+
+ADS1220_WE::ADS1220_WE(SPIClass *s, int cs, int drdy, bool pc, bool spiInit) 
+    : _spi(s)
+    , csPin(cs)
+    , drdyPin(drdy)
+    , spiPinsChanged(pc)
+    , spiInitialized(spiInit) 
+    {} // intentionally empty}
+    
+ADS1220_WE::ADS1220_WE(SPIClass *s, int cs, int drdy, int mosi, int miso, int sclk, bool pc, bool spiInit) 
+    : _spi(s)
+    , csPin(cs)
+    , drdyPin(drdy)
+    , mosiPin(mosi)
+    , misoPin(miso)
+    , sclkPin(sclk)
+    , spiPinsChanged(pc)
+    , spiInitialized(spiInit)
+    {} // intentionally empty}
+    
+/* Commands */
+
 uint8_t ADS1220_WE::init(){
     vRef = 2.048;
     gain = 1; 
     refMeasurement = false; 
     convMode = ADS1220_SINGLE_SHOT;
+ 
+#if defined(ESP32)
+    if(spiPinsChanged){
+        if(!spiInitialized){
+            _spi->begin(sclkPin, misoPin, mosiPin, csPin);
+            spiInitialized = true;
+        }
+    } else {
+        if(!spiInitialized){
+            _spi->begin();
+            spiInitialized = true;
+        }
+    }
+#elif defined(ARDUINO_ARCH_STM32)
+    if(spiPinsChanged){
+        _spi->setMISO(misoPin);
+        _spi->setMOSI(mosiPin);
+        _spi->setSCLK(sclkPin);
+    }
     if(!spiInitialized){
         _spi->begin();
         spiInitialized = true;
     }
+#else   
+    if(!spiInitialized){
+        _spi->begin();
+        spiInitialized = true;
+    }
+#endif
+
     setSPIClockSpeed(spiClock);
-    pinMode(drdyPin, INPUT);
     if(!(csPin < 0)){
         pinMode(csPin, OUTPUT);
         digitalWrite(csPin, HIGH);
