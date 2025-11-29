@@ -21,14 +21,24 @@
 #include <SPI.h>
 
 /* If you only have one SPI device, then you can save one pin by defining
-  CS_PIN as -1 and connecting CS of the ADS1220 to GND */
-#define ADS1220_CS_PIN    5 // chip select pin
-#define ADS1220_DRDY_PIN  4 // data ready pin 
+  CS_PIN as -1 and connecting CS of the ADS1220 to GND. 
+  If you have only one SPI device and you want to save an additional pin,
+  do the following:
+    * Select the MISO pin as DRDY. 
+    * Leave the ADS1220 DRDY pin unconnected or connect it to DVDD using a weak pull-up resistor. 
+    * Choose the DOUT_DRDY mode. 
+    * The CS Pin must be connected to GND.
+ */
+#define ADS1220_CS_PIN    7 // chip select pin
+#define ADS1220_DRDY_PIN  6 // data ready pin 
 
 /* Create your ADS1220 object */
 ADS1220_WE ads = ADS1220_WE(ADS1220_CS_PIN, ADS1220_DRDY_PIN);
 /* Alternatively you can also pass the SPI object as reference */
 // ADS1220_WE ads = ADS1220_WE(&SPI, ADS1220_CS_PIN, ADS1220_DRDY_PIN);
+/* If you have an ESP32 board or an STM32 board, and you want to change
+ the SPI pins, then choose the following: */
+// ADS1220_WE ads = ADS1220_WE(&SPI, ADS1220_CS_PIN, ADS1220_DRDY_PIN, YOUR_MOSI, YOUR_MISO, YOUR_SCLK);
 
 void setup(){
   Serial.begin(9600);
@@ -36,6 +46,9 @@ void setup(){
     Serial.println("ADS1220 is not connected!");
     while(1);
   }
+  
+  // ads.setDrdyMode(ADS1220_DOUT_DRDY); // DOUT_DRDY mode => DRDY = MISO
+  
 /* The voltages to be measured need to be between negative VREF + 0.2 V and positive
  * VREF -0.2 V if PGA is enabled. For this basic example I disable PGA, to be on the 
  * safe side. */ 
