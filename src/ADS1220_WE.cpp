@@ -61,6 +61,9 @@ uint8_t ADS1220_WE::init(){
     gain = 1; 
     refMeasurement = false; 
     convMode = ADS1220_SINGLE_SHOT;
+    if(!(drdyPin < 0)){
+        pinMode(drdyPin, INPUT);
+    }
  
 #if defined(ESP32)
     if(spiPinsChanged){
@@ -92,9 +95,6 @@ uint8_t ADS1220_WE::init(){
 #endif
 
     setSPIClockSpeed(spiClock);
-    if(!(drdyPin < 0)){
-        pinMode(drdyPin, INPUT);
-    }
     if(!(csPin < 0)){
         pinMode(csPin, OUTPUT);
         digitalWrite(csPin, HIGH);
@@ -459,4 +459,5 @@ void ADS1220_WE::setCSPin(uint8_t state){
         digitalWrite(csPin, state);
     }
 }
+
 
