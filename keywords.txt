@@ -50,8 +50,8 @@ setSPIClockSpeed	KEYWORD2
 setVRefValue_V	KEYWORD2
 getVRef_V	KEYWORD2
 setAvddAvssAsVrefAndCalibrate	KEYWORD2
-setRefp0Refn0AsVefAndCalibrate	KEYWORD2
-setRefp1Refn1AsVefAndCalibrate	KEYWORD2
+setRefp0Refn0AsVrefAndCalibrate	KEYWORD2
+setRefp1Refn1AsVrefAndCalibrate	KEYWORD2
 setIntVRef	KEYWORD2
 getVoltage_mV	KEYWORD2
 getVoltage_muV	KEYWORD2
