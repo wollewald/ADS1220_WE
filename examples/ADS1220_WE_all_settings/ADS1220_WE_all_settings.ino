@@ -152,8 +152,8 @@ void setup() {
      the reference. Be aware that this is not a measurement with highest precision.
      "Calibration" might be a bit misleading. You should take the lowest data rate (default)
      for most accurate results. You can use the following functions:
-     setRefp0Refn0AsVefAndCalibrate();
-     setRefp1Refn1AsVefAndCalibrate();
+     setRefp0Refn0AsVrefAndCalibrate();
+     setRefp1Refn1AsVrefAndCalibrate();
      setAvddAvssAsVrefAndCalibrate();
      setIntVRef();
      The latter function sets the default settings.
@@ -163,8 +163,8 @@ void setup() {
   //  ads.setVRefSource(ADS1220_VREF_REFP0_REFN0);
   //  ads.setVRefValue_V(3.312);  // just an example
   //  or:
-  //  ads.setRefp0Refn0AsVefAndCalibrate(); //or:
-  //  ads.setRefp1Refn1AsVefAndCalibrate(); //or:
+  //  ads.setRefp0Refn0AsVrefAndCalibrate(); //or:
+  //  ads.setRefp1Refn1AsVrefAndCalibrate(); //or:
   //  ads.setAvddAvssAsVrefAndCalibrate(); //or:
   //  ads.setIntVRef();
   //  to query VRef:
