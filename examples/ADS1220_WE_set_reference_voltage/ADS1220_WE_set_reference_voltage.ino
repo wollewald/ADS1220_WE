@@ -79,8 +79,8 @@ void setup(){
  * the reference. Be aware that this is not a measurement with highest precision. 
  * "Calibration" might be a bit misleading. You should take the lowest data rate (default) 
  * for most accurate results. You can use the following functions:
- * setRefp0Refn0AsVefAndCalibrate();
- * setRefp1Refn1AsVefAndCalibrate();
+ * setRefp0Refn0AsVrefAndCalibrate();
+ * setRefp1Refn1AsVrefAndCalibrate();
  * setAvddAvssAsVrefAndCalibrate();
  * setIntVRef();
  * The latter function sets the default settings. 
@@ -104,13 +104,13 @@ void loop(){
   Serial.println(result,3); 
 
   Serial.println("3. REFP0/REFN0 as voltage reference, vRef measured by ADS1220");
-  ads.setRefp0Refn0AsVefAndCalibrate();
+  ads.setRefp0Refn0AsVrefAndCalibrate();
   result = ads.getVRef_V();
   Serial.print("Reference, measured     [V]: ");
   Serial.println(result,3); 
 
   Serial.println("4. REFP1/REFN1 as voltage reference, vRef measured by ADS1220");
-  ads.setRefp1Refn1AsVefAndCalibrate();
+  ads.setRefp1Refn1AsVrefAndCalibrate();
   result = ads.getVRef_V();
   Serial.print("Reference, measured     [V]: ");
   Serial.println(result,3);
