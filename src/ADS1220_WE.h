@@ -34,6 +34,13 @@
 #endif
 #include<SPI.h>
 
+#define setRefp0Refn0AsVefAndCalibrate \
+    _Pragma("GCC error \"setRefp0Refn0AsVefAndCalibrate() was renamed to setRefp0Refn0AsVrefAndCalibrate()\"")
+    
+#define setRefp1Refn1AsVefAndCalibrate \
+    _Pragma("GCC error \"setRefp1Refn1AsVefAndCalibrate() was renamed to setRefp1Refn1AsVrefAndCalibrate()\"")
+
+
 typedef enum ADS1220_MUX {
     ADS1220_MUX_0_1     = 0x00,   //default
     ADS1220_MUX_0_2     = 0x10,
@@ -193,8 +200,8 @@ class ADS1220_WE
         void setVRefValue_V(float refVal);
         float getVRef_V();
         void setAvddAvssAsVrefAndCalibrate();
-        void setRefp0Refn0AsVefAndCalibrate();
-        void setRefp1Refn1AsVefAndCalibrate();
+        void setRefp0Refn0AsVrefAndCalibrate();
+        void setRefp1Refn1AsVrefAndCalibrate();
         void setIntVRef();
         void setNonBlockingMode(bool nonBlocking);
         bool getNonBlockingMode();

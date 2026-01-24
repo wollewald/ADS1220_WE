@@ -301,6 +301,8 @@ float ADS1220_WE::getVRef_V(){
 }
 
 void ADS1220_WE::setAvddAvssAsVrefAndCalibrate(){
+    bool lastBlockingMode = nonBlockingMode;
+    nonBlockingMode = false;
     float avssVoltage = 0.0;
     setVRefSource(ADS1220_VREF_AVDD_AVSS);  
     setCompareChannels(ADS1220_MUX_AVDD_M_AVSS_4);
@@ -308,19 +310,25 @@ void ADS1220_WE::setAvddAvssAsVrefAndCalibrate(){
         avssVoltage += getVoltage_mV();
     }
     vRef = avssVoltage * 4.0f / 10000.0f; 
+    nonBlockingMode = lastBlockingMode;
 }
 
-void ADS1220_WE::setRefp0Refn0AsVefAndCalibrate(){
+void ADS1220_WE::setRefp0Refn0AsVrefAndCalibrate(){
+    bool lastBlockingMode = nonBlockingMode;
+    nonBlockingMode = false;
     float ref0Voltage = 0.0;
     setVRefSource(ADS1220_VREF_REFP0_REFN0);
     setCompareChannels(ADS1220_MUX_REFPX_REFNX_4);
     for(int i = 0; i<10; i++){
         ref0Voltage += getVoltage_mV();
     }
-    vRef = ref0Voltage * 4.0f / 10000.0f; 
+    vRef = ref0Voltage * 4.0f / 10000.0f;
+    nonBlockingMode = lastBlockingMode;
 }
 
-void ADS1220_WE::setRefp1Refn1AsVefAndCalibrate(){
+void ADS1220_WE::setRefp1Refn1AsVrefAndCalibrate(){
+    bool lastBlockingMode = nonBlockingMode;
+    nonBlockingMode = false;
     float ref1Voltage = 0.0;
     setVRefSource(ADS1220_VREF_REFP1_REFN1);
     setCompareChannels(ADS1220_MUX_REFPX_REFNX_4);
@@ -328,6 +336,7 @@ void ADS1220_WE::setRefp1Refn1AsVefAndCalibrate(){
         ref1Voltage += getVoltage_mV();
     }
     vRef = ref1Voltage * 4.0f / 10000.0f; 
+    nonBlockingMode = lastBlockingMode;
 }
 
 void ADS1220_WE::setIntVRef(){
